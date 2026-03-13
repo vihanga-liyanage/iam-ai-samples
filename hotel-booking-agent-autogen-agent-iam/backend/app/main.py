@@ -25,7 +25,7 @@ STAFF_MANAGEMENT_AGENT_URL = os.getenv('STAFF_MANAGEMENT_AGENT_URL', 'http://loc
 AGENT_WEBHOOK_TIMEOUT = int(os.getenv('AGENT_WEBHOOK_TIMEOUT', '10'))  # seconds
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )

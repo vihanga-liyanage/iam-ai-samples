@@ -35,6 +35,7 @@ class JWTTokenClient:
             logger.warning("JWT client credentials not configured. Token requests will fail.")
     
     async def get_access_token(self, scope: str) -> Optional[str]:
+        logger.debug(f"Requesting access token for scope: {scope}")
         """Get access token for specific scope using client credentials grant"""
         async with self._token_lock:
             # Check if we have a valid cached token for this scope
@@ -42,7 +43,7 @@ class JWTTokenClient:
             if (token_data and 
                 token_data.get('expires_at') and 
                 datetime.now() < token_data['expires_at']):
-                logger.debug(f"Using cached token for scope: {scope}")
+                logger.debug(f"Using cached token for scope: {scope}, token: {token_data['access_token']}")
                 return token_data['access_token']
             
             if not all([self.client_id, self.client_secret]):
@@ -78,6 +79,7 @@ class JWTTokenClient:
                     }
                     
                     logger.info(f"Successfully obtained JWT access token for scope: {scope}")
+                    logger.debug(f"New token: {access_token}")
                     return access_token
                     
             except Exception as e:

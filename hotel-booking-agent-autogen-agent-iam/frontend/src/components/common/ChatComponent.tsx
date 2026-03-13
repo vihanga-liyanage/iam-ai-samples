@@ -228,7 +228,7 @@ const ChatComponent: React.FC = () => {
         clearInterval(checkClosed);
         setTimeout(() => {
           if (pendingAuth && !authorizationCompleted) {
-            addSystemMessage('Authorization window was closed. The booking was not completed.');
+            // addSystemMessage('Authorization window was closed. The booking was not completed.');
             setPendingAuth(null);
           }
         }, 500);

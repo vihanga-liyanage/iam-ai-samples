@@ -25,7 +25,7 @@ class AsgardeoSCIMService:
     
     def __init__(self):
         self.base_url = os.getenv('ASGARDEO_SCIM_BASE_URL', 'https://dev.api.asgardeo.io/t/myagents')
-        self.scim_scope = 'internal_user_mgt_view'
+        self.scim_scope = 'internal_user_mgt_view internal_agent_mgt_view'
         
         # Data caching - configurable TTL in seconds (default 30 minutes)
         self._cache_ttl = int(os.getenv('SCIM_CACHE_TTL', '1800'))  # 30 minutes
@@ -151,6 +151,7 @@ class AsgardeoSCIMService:
             return cached_agent
         
         access_token = await self._get_access_token()
+        logger.info(f"Access token for agent info: {access_token}")
         if not access_token:
             return None
         
